@@ -17,8 +17,8 @@ export(
   "visualize_clonaldiversity"
 )
 
-suppressMessages(ucsc <- modules::use("ucsc.R"))
-suppressMessages(graphics <- modules::use("graphics.R"))
+suppressMessages(ucsc <- modules::use("/Users/tha8tf/Documents/GitHub/immunereceptoire-clones/ucsc.R"))
+#suppressMessages(graphics <- modules::use("graphics.R"))
 
 D40_COLORS <- c("#FB1C0D", "#0DE400", "#0D00FF", "#E8B4BD", "#FD00EA", "#0DD1FE", "#FF9B0D", "#0D601C", "#C50D69", "#CACA16", "#722A91", "#00DEBF", "#863B00", "#5D7C91", "#FD84D8", "#C100FB", "#8499FC", "#FD6658", "#83D87A", "#968549", "#DEB6FB", "#832E60", "#A8CAB0", "#FE8F95", "#FE1CBB", "#DF7CF8", "#FF0078", "#F9B781", "#4D493B", "#1C5198", "#7C32CE", "#EFBC16", "#7CD2DE", "#B30DA7", "#9FC0F6", "#7A940D", "#9B0000", "#946D9B", "#C8C2D9", "#94605A")
 
@@ -107,7 +107,7 @@ check_seurat_object <- function(seuratobject,cluster){
   
   so <- readRDS(seuratobject)
   
-  for (i in base::length(cluster)){
+  for (i in 1:base::length(cluster)){
     metadata_header <- cluster[i]
     
     tryCatch(
@@ -120,7 +120,7 @@ check_seurat_object <- function(seuratobject,cluster){
         base::print(paste("Performing analyses for" , metadata_header, "that has the following unique identities:", base::levels(so@meta.data[[metadata_header]])))
       }
       }, error = function(e){
-        base::print(paste("No metadata called", metadata_header,"in seurat object")) ## should include a code to ignore if the mentioned metadata header is missing and run the analyses on the remaining headers. 
+        base::print(paste("Error with", metadata_header,"in seurat object with error",e)) ## should include a code to ignore if the mentioned metadata header is missing and run the analyses on the remaining headers. 
       }
     )
   }
