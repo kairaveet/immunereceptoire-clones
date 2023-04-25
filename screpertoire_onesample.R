@@ -1,21 +1,21 @@
-import("scRepertoire", attach=FALSE) 
-import("Seurat", attach=FALSE)
-import("RColorBrewer", attach=FALSE)
-import("ggraph", attach=FALSE)
-import("circlize", attach=FALSE)
+# import("scRepertoire", attach=FALSE) 
+# import("Seurat", attach=FALSE)
+# import("RColorBrewer", attach=FALSE)
+# import("ggraph", attach=FALSE)
+# import("circlize", attach=FALSE)
 
-export(
-  "create_combined_sample_object",
-  "visualize_vdjc_genes",
-  "create_vdjc_seurat_object",
-  "check_seurat_object",
-  "visualize_bcr_tcr",
-  "visualize_clonalhomeostasis",
-  "visualize_clonaloverlap",
-  "visualize_clonalnetwork",
-  "visualize_chord_diagrams",
-  "visualize_clonaldiversity"
-)
+# export(
+#   "create_combined_sample_object",
+#   "visualize_vdjc_genes",
+#   "create_vdjc_seurat_object",
+#   "check_seurat_object",
+#   "visualize_bcr_tcr",
+#   "visualize_clonalhomeostasis",
+#   "visualize_clonaloverlap",
+#   "visualize_clonalnetwork",
+#   "visualize_chord_diagrams",
+#   "visualize_clonaldiversity"
+# )
 
 suppressMessages(ucsc <- modules::use("/Users/tha8tf/Documents/GitHub/immunereceptoire-clones/ucsc.R"))
 #suppressMessages(graphics <- modules::use("graphics.R"))
@@ -220,18 +220,6 @@ visualize_clonalhomeostasis <- function(clone,cluster,vdjc_seurat_object,combine
         base::print(p)
         grDevices::dev.off()
         
-        print("Exporting Clonal Homeostasis to UCSC Cellbrowser")
-        ucsc$export_cellbrowser(
-          seurat_data=temp_seurat_object,
-          assay="RNA",
-          slot="counts",
-          short_label="RNA",
-          is_nested=TRUE,
-          meta_fields = "cloneType", meta_fields_names = "ClonalHomeostasis",
-          rootname=paste("test_clonal", "_cellbrowser/rna", sep=""),
-        )
-        
-        
         rm(temp_seurat_object)
         
       }, error = function(e){
@@ -241,6 +229,43 @@ visualize_clonalhomeostasis <- function(clone,cluster,vdjc_seurat_object,combine
     }
   }
   
+  ## add an assay for the clonotypes
+  
+  binarized_clono_matrix = binarize_clonotype_metadata(vdjc_seurat_object,meta_field = "CTstrict") #rows are clonotypes and cols are cells
+  
+  clono_assay <- Seurat::CreateAssayObject(counts = binarized_clono_matrix)
+  
+  # add this assay to the previously created Seurat object
+  vdjc_seurat_object[["Clonotype"]] <- clono_assay
+  
+  print("Reordering reductions to have wnnumap on the first place")              # will be shown first in UCSC Cellbrowser
+  reduc_names <- names(vdjc_seurat_object@reductions)
+  ordered_reduc_names <- c("rnaumap", reduc_names[reduc_names!="rnaumap"])       # wnnumap will be added by this time
+  vdjc_seurat_object@reductions <- vdjc_seurat_object@reductions[ordered_reduc_names]
+  
+  print("Exporting Clonal Homeostasis to UCSC Cellbrowser")
+  
+  ucsc$export_cellbrowser(
+    seurat_data=vdjc_seurat_object,
+    assay="RNA",
+    slot="counts",
+    short_label="RNA",
+    is_nested=TRUE,
+    meta_fields = colnames(vdjc_seurat_object@meta.data), meta_fields_names = colnames(vdjc_seurat_object@meta.data),
+    rootname=paste("test_clonal", "_cellbrowser/rna", sep=""),
+  )
+  
+  ucsc$export_cellbrowser(
+    seurat_data=vdjc_seurat_object,
+    assay="Clonotype",
+    slot="counts",
+    short_label="Clonotype",
+    is_nested=TRUE,
+    meta_fields = colnames(vdjc_seurat_object@meta.data), meta_fields_names = colnames(vdjc_seurat_object@meta.data),
+    rootname=paste("test_clonal", "_cellbrowser/clonotype", sep="")
+  )
+  
+  return(vdjc_seurat_object)
 }
 
 
@@ -346,3 +371,22 @@ visualize_clonaldiversity <- function(clone, cluster,vdjc_seurat_object){
   }
   
 }
+
+
+binarize_clonotype_metadata <- function(vdjc_seurat_object,meta_field){
+   
+  x = vdjc_seurat_object@meta.data
+  
+  binary_mat = matrix(0,nrow=length(unique(stats::na.omit(x[,meta_field]))), ncol=nrow(x))
+  
+  rownames(binary_mat) = unique(stats::na.omit(x[,meta_field]))
+  colnames(binary_mat) = rownames(x)
+  
+  for (i in rownames(binary_mat)){
+    subset_x_i = x[which(x[,meta_field] == i),]
+    binary_mat[i,rownames(subset_x_i)] = 1
+  }
+  
+   return(binary_mat)
+ }
+
