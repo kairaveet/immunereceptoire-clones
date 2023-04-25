@@ -106,8 +106,8 @@ print("Loading seurat object")
 vdjc_seurat_object <- scRep$create_vdjc_seurat_object(args$seuratobject,args$cluster,combined_sample_object)
 
 print("Creating directory to store files")
-dir.create("scRepertoire_output_multisample")
-setwd("./scRepertoire_output_multisample")
+dir.create("scRepertoire_output_multisample_tcr_multisample_try_5")
+setwd("./scRepertoire_output_multisample_tcr_multisample_try_5")
 
 print("Visualizing VDJC Genes")
 #visualize_vdjc_genes_multi_sample(args,combined_sample_object)
@@ -116,8 +116,10 @@ scRep$visualize_vdjc_genes(combined_sample_object = combined_sample_object,immun
 print("Visualizing Unique Clonotypes")
 scRep$visualize_bcr_tcr(args$clone,args$cluster,vdjc_seurat_object,combined_sample_object,args$immunetype)
 
+saveRDS(vdjc_seurat_object,"vdjc_seurat_object.rds")
+
 print("Visualizing Clonal Homeostasis")
-scRep$visualize_clonalhomeostasis(args$clone,args$cluster,vdjc_seurat_object,combined_sample_object)
+vdjc_seurat_object = scRep$visualize_clonalhomeostasis(args$clone,args$cluster,vdjc_seurat_object,combined_sample_object)
 
 print("Visualizing Clonal Overlap")
 scRep$visualize_clonaloverlap(args$clone, args$cluster, vdjc_seurat_object)
