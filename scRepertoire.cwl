@@ -134,414 +134,236 @@ inputs:
 
 outputs:
 
-  umap_res_plot_png:
+  number_of_unique_clonotypes:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_res_*.png"
+      glob: "*_Number_of_Unique_Clonotypes.pdf"
     doc: |
-      Clustered cells UMAP.
-      PNG format
+      bar plot of absolute number of clonotypes per cluster/group.
 
-  umap_res_plot_pdf:
+  percentage_of_unique_clonotypes:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_res_*.pdf"
+      glob: "*_Percentage_of_Unique_Clonotypes.pdf"
     doc: |
-      Clustered cells UMAP.
-      PDF format
+      bar plot of percentage of clonotypes per cluster/group.
 
-  slh_res_plot_png:
+  clonal_chord_diagram:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_slh_res_*.png"
+      glob: "*_Clonal_ChordDiagram.pdf"
     doc: |
-      Silhouette scores. Downsampled to max 500 cells per cluster.
-      PNG format
+      chord diagram of number of clones shared between groups.    
 
-  slh_res_plot_pdf:
+  diversity_plot:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_slh_res_*.pdf"
+      glob: "*_Diversity.pdf"
     doc: |
-      Silhouette scores. Downsampled to max 500 cells per cluster.
-      PDF format
+      box plot of five measures of clonal diversity per group.
 
-  umap_spl_idnt_res_plot_png:
+  clonal_homeostasis_umap:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_spl_idnt_res_*.png"
+      glob: "*_Clonal_Homeostasis_UMAP.pdf"
     doc: |
-      Split by dataset clustered cells UMAP.
-      PNG format
+      clonal homeostasis category for each cell on UMAP.
 
-  umap_spl_idnt_res_plot_pdf:
+  clonal_homeostasis:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_spl_idnt_res_*.pdf"
+      glob: "*_Clonal_Homeostasis.pdf"
     doc: |
-      Split by dataset clustered cells UMAP.
-      PDF format
+      stacked bar plot of clonal homeostasis of cells in each group.     
 
-  cmp_gr_clst_spl_idnt_res_plot_png:
+  clonal_network_umap:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_clst_spl_idnt_res_*.png"
+      glob: "*_Clonal_Network.pdf"
     doc: |
-      Grouped by cluster split by dataset cells composition plot. Downsampled.
-      PNG format
-
-  cmp_gr_clst_spl_idnt_res_plot_pdf:
+      network drawn on umap showing sharing of clones
+      
+  jaccard_clonal_overlap:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_clst_spl_idnt_res_*.pdf"
+      glob: "*_jaccard_Clonal_Overlap.pdf"
     doc: |
-      Grouped by cluster split by dataset cells composition plot. Downsampled.
-      PDF format
+      jaccard metric of clonal overlap between two groups
 
-  cmp_gr_idnt_spl_clst_res_plot_png:
+  morisita_clonal_overlap:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_idnt_spl_clst_res_*.png"
+      glob: "*_morisita_Clonal_Overlap.pdf"
     doc: |
-      Grouped by dataset split by cluster cells composition plot. Downsampled.
-      PNG format
+      morisita metric of clonal overlap between two groups
 
-  cmp_gr_idnt_spl_clst_res_plot_pdf:
+  scaled_clonal_overlap:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_idnt_spl_clst_res_*.pdf"
+      glob: "*_overlap_Clonal_Overlap.pdf"
     doc: |
-      Grouped by dataset split by cluster cells composition plot. Downsampled.
-      PDF format
+      scaled clonal overlap between two groups 
 
-  umap_spl_cnd_res_plot_png:
+  absolute_clonal_overlap:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_spl_cnd_res_*.png"
+      glob: "*_raw_Clonal_Overlap.pdf"
     doc: |
-      Split by grouping condition clustered cells UMAP.
-      PNG format
+       absolute number of shared clones between two groups     
 
-  umap_spl_cnd_res_plot_pdf:
+  vdjc_scaled_frequencies:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_spl_cnd_res_*.pdf"
+      glob: "*_visualize_frequencies_scaled.pdf"
     doc: |
-      Split by grouping condition clustered cells UMAP.
-      PDF format
+       bar plot showing percentage of cells with each vdjc gene in each group  
 
-  cmp_gr_clst_spl_cnd_res_plot_png:
+  vdjc_absolute_freqeuncies:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_clst_spl_cnd_res_*.png"
+      glob: "*_visualize_frequencies.pdf"
     doc: |
-      Grouped by cluster split by condition cells composition plot. Downsampled.
-      PNG format
+      bar plot showing number of cells with each vdjc gene in each group 
 
-  cmp_gr_clst_spl_cnd_res_plot_pdf:
+  number_of_unique_clonotypes_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_clst_spl_cnd_res_*.pdf"
+      glob: "*_Number_of_Unique_Clonotypes.txt"
     doc: |
-      Grouped by cluster split by condition cells composition plot. Downsampled.
-      PDF format
+      absolute number of clonotypes per cluster in txt.
 
-  cmp_gr_cnd_spl_clst_res_plot_png:
+  percentage_of_unique_clonotypes_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_cnd_spl_clst_res_*.png"
+      glob: "*_Percentage_of_Unique_Clonotypes.txt"
     doc: |
-      Grouped by condition split by cluster cells composition plot. Downsampled.
-      PNG format
+      percentage of clonotypes per cluster/group in txt.
 
-  cmp_gr_cnd_spl_clst_res_plot_pdf:
+  diversity_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_cnd_spl_clst_res_*.pdf"
+      glob: "*_Diversity.txt"
     doc: |
-      Grouped by condition split by cluster cells composition plot. Downsampled.
-      PDF format
+      five measures of clonal diversity per group in txt.
 
-  umap_spl_ph_res_plot_png:
+  clonal_homeostasis_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_spl_ph_res_*.png"
+      glob: "*_Clonal_Homeostasis_UMAP.txt"
     doc: |
-      Split by cell cycle phase clustered cells UMAP.
-      PNG format
-
-  umap_spl_ph_res_plot_pdf:
+      clonal homeostasis of cells in each group in txt.  
+      
+  jaccard_clonal_overlap_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_umap_spl_ph_res_*.pdf"
+      glob: "*_jaccard_Clonal_Overlap.txt"
     doc: |
-      Split by cell cycle phase clustered cells UMAP.
-      PDF format
+       jaccard clonal overlap score between two groups in txt.  
 
-  cmp_gr_ph_spl_idnt_plot_png:
-    type: File?
-    outputBinding:
-      glob: "*_cmp_gr_ph_spl_idnt.png"
-    doc: |
-      Grouped by cell cycle phase split by dataset cells composition plot. Downsampled.
-      PNG format
-
-  cmp_gr_ph_spl_idnt_plot_pdf:
-    type: File?
-    outputBinding:
-      glob: "*_cmp_gr_ph_spl_idnt.pdf"
-    doc: |
-      Grouped by cell cycle phase split by dataset cells composition plot. Downsampled.
-      PDF format
-
-  cmp_gr_ph_spl_clst_res_plot_png:
+  morisita_clonal_overlap_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_ph_spl_clst_res_*.png"
+      glob: "*_morisita_Clonal_Overlap.txt"
     doc: |
-      Grouped by cell cycle phase split by cluster cells composition plot. Downsampled.
-      PNG format
+       morisita clonal overlap score between two groups in txt.   
 
-  cmp_gr_ph_spl_clst_res_plot_pdf:
+  scaled_clonal_overlap_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_cmp_gr_ph_spl_clst_res_*.pdf"
+      glob: "*_overlap_Clonal_Overlap.txt"
     doc: |
-      Grouped by cell cycle phase split by cluster cells composition plot. Downsampled.
-      PDF format
+       scaled clonal overlap score between two groups in txt.   
 
-  xpr_avg_res_plot_png:
+  absolute_clonal_overlap_txt:
     type:
     - "null"
     - type: array
       items: File
     outputBinding:
-      glob: "*_xpr_avg_res_*.png"
+      glob: "*_raw_Clonal_Overlap.txt"
     doc: |
-      Log normalized scaled average gene expression per cluster.
-      PNG format
-
-  xpr_avg_res_plot_pdf:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_avg_res_*.pdf"
-    doc: |
-      Log normalized scaled average gene expression per cluster.
-      PDF format
-
-  xpr_per_cell_plot_png:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_per_cell_[!sgnl_]*.png"
-    doc: |
-      Log normalized gene expression on cells UMAP.
-      PNG format
-
-  xpr_per_cell_plot_pdf:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_per_cell_[!sgnl_]*.pdf"
-    doc: |
-      Log normalized gene expression on cells UMAP.
-      PDF format
-
-  xpr_per_cell_sgnl_plot_png:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_per_cell_sgnl_*.png"
-    doc: |
-      Log normalized gene expression density on cells UMAP.
-      PNG format
-
-  xpr_per_cell_sgnl_plot_pdf:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_per_cell_sgnl_*.pdf"
-    doc: |
-      Log normalized gene expression density on cells UMAP.
-      PDF format
-
-  xpr_dnst_res_plot_png:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_dnst_res_*.png"
-    doc: |
-      Log normalized gene expression density per cluster.
-      PNG format
-
-  xpr_dnst_res_plot_pdf:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_dnst_res_*.pdf"
-    doc: |
-      Log normalized gene expression density per cluster.
-      PDF format
-
-  xpr_htmp_res_plot_png:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_htmp_res_*.png"
-    doc: |
-      Normalized gene expression heatmap grouped by cluster.
-      PNG format
-
-  xpr_htmp_res_plot_pdf:
-    type:
-    - "null"
-    - type: array
-      items: File
-    outputBinding:
-      glob: "*_xpr_htmp_res_*.pdf"
-    doc: |
-      Normalized gene expression heatmap grouped by cluster.
-      PDF format
-
-  gene_markers_tsv:
-    type: File?
-    outputBinding:
-      glob: "*_gene_markers.tsv"
-    doc: |
-      Differentially expressed genes between each pair of clusters for all resolutions.
-      TSV format
-
-  ucsc_cb_config_data:
-    type: Directory?
-    outputBinding:
-      glob: "*_cellbrowser"
-    doc: |
-      Directory with UCSC Cellbrowser configuration data.
+       absolute/raw clonal overlap score between two groups in txt.  
 
   ucsc_cb_html_data:
     type: Directory?
     outputBinding:
-      glob: "*_cellbrowser/html_data"
+      glob: "*_clonal_ellbrowser/html_data"
     doc: |
       Directory with UCSC Cellbrowser html data.
 
   ucsc_cb_html_file:
     type: File?
     outputBinding:
-      glob: "*_cellbrowser/html_data/index.html"
+      glob: "*_clonal_cellbrowser/html_data/index.html"
     doc: |
       HTML index file from the directory with UCSC Cellbrowser html data.
 
-  seurat_data_rds:
+  vdjc_seurat_object:
     type: File
     outputBinding:
-      glob: "*_data.rds"
+      glob: "vdjc_seurat_object.rds"
     doc: |
       Reduced Seurat data in RDS format
-
-  seurat_data_h5seurat:
-    type: File?
-    outputBinding:
-      glob: "*_data.h5seurat"
-    doc: |
-      Reduced Seurat data in h5seurat format
-
-  seurat_data_h5ad:
-    type: File?
-    outputBinding:
-      glob: "*_data.h5ad"
-    doc: |
-      Reduced Seurat data in h5ad format
-
-  seurat_data_scope:
-    type: File?
-    outputBinding:
-      glob: "*_data.loom"
-    doc: |
-      Reduced Seurat data in SCope compatible loom format
-
-  stdout_log:
-    type: stdout
-
-  stderr_log:
-    type: stderr
 
 
 baseCommand: ["run_screpertoire_multisample.R"]
